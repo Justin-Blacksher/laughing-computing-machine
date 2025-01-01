@@ -1,6 +1,7 @@
 import click
 import utilities
 
+
 @click.group()
 def cli():
     ''' Wolfenstien 3D Cheat Engine '''
@@ -11,8 +12,8 @@ def cli():
 def GiveMoreAmmo():
     ''' Give the player more ammo '''
     utilities.Get_Ammo()
-    utilities.AddAmmo(quantity=50)
-    utilities.Get_Ammo()
+    #utilities.AddAmmo(quantity=50)
+    #utilities.Get_Ammo()
 
 @cli.command()
 def GiveScorePoints():

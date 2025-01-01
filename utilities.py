@@ -3,19 +3,18 @@ import pymem.exception
 import pymem.process
 import settings
 
-process = settings.GAME_EXECUTABLE
+
+
 
 def Get_Ammo():
     try:
-        pm = pymem.Pymem(process_name=process)
-        process_id = pymem.process.module_from_name(process_handle=pm.process_handle, module_name=process).lpBaseOfDll
-
+        pm = pymem.Pymem(process_name=settings.GAME_EXECUTABLE)
+        process_id = pymem.process.module_from_name(process_handle=pm.process_handle, module_name=settings.GAME_EXECUTABLE).lpBaseOfDll
         # Read the value at the memory location
-        value = pm.read_int(settings.AMMO)
-        print(f"Value at {hex(settings.AMMO)}: {value}")
-
+        print(hex(0x00000011 * 4 + 0x00b4d6d0))
+        #print(hex(pm.base_address + 0x0a99ae64 + 0x905a4d + 0x74D714 + 0x41e44))
     except pymem.exception.ProcessNotFound:
-        print(f"Process {process} not found!")
+        print(f"Process not found!")
 
     except Exception as e:
         print(f"Error: {e}")
@@ -41,11 +40,13 @@ def Get_Score():
 def AddAmmo(quantity):
     try:
         pm = pymem.Pymem(process_name=process)
-        process_id = pymem.process.module_from_name(process_handle=pm.process_handle, module_name=process).lpBaseOfDll
+        module = pymem.process.module_from_name(process_handle=pm.process_handle, module_name=process).lpBaseOfDll
+        ammo = pm.base_address+settings.BASEOFFSET
+        
 
         # Write the value at the memory location
         try:
-            pm.write_int(settings.AMMO, quantity)
+            pm.write_int(ammo+settings.AMMOOFFSET, quantity)
         except Exception as e:
             print(f"Error: {e}")
 
