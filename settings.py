@@ -17,4 +17,4 @@ GAME_EXECUTABLE="DOSBox.exe"
 
 # Currently working offsets
 
-AMMOPOINTER = DOSBox.exe + 0x00017f60 + 68 + 41e44
+AMMOPOINTER = "DOSBox.exe" + 0x00017f60 + 68 + 41e44
